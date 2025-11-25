@@ -1,22 +1,26 @@
 
 
-# XPS 13-9360 Monterey
+# XPS 13-9360 Ventura
+
+> **注意**：本仓库已移除对 Clover 引导器的主动维护与支持。当前的 EFI 和示例配置均以 OpenCore (OC) 为准；若仍需使用 Clover，请在历史分支或自行添加相关文件与配置。
+
+---
+
+
 
 | 类别                | 详细信息                                                     |
 | ------------------- | ------------------------------------------------------------ |
 | 电脑型号            | DELL XPS 13-9360                                             |
-| Clover:当前系统版本 | macOS Mojave 10.14.6(18G84) & 10.15(Beta 3)                  |
-| OC:当前系统版本     | macOS Monterey 12.0.1 (21A559)                               |
-| BIOS                | 2.13.0 (2.6.2之后的版本有bug内存频率变成1867 MHz,但是不影响安装) |
-| 处理器              | Intel Core i7-7560U/i7-8550U                                 |
+| OC:当前系统版本     | macOS Ventura 13.7.8 (22H730)                               |
+| BIOS                | 2.10.0 (2.6.2之后的版本有bug内存频率变成1867 MHz,但是不影响安装) |
+| 处理器              | Intel Core i7-8550U/7500U/7200U                                 |
 | 内存                | 16 GB(DDR3L 2133 MHz)                                        |
-| 硬盘                | SAMSUNG PM961 (512GB)                                        |
+| 硬盘                | Kingston OM3PDP3-AD NVME KDI(512GB) /SAMSUNG PM961 (512GB)    |
 | 显卡                | Intel Iris Plus Graphics 640/UHD 620                         |
 | 显示器              | QHD(Sharp触屏 3200x1800)                                     |
 | 声卡                | ALC256 (ALC3246)                                             |
 | 网卡                | 更换为 BCM94360cs2 （原网卡Killer 1535，也可以更换为DW1560/1830/1820A,否则无法驱动网卡，蓝牙也有些问题) |
 
-![](https://hoan-pic.oss-cn-hangzhou.aliyuncs.com/img/info.png)
 
 ## 系统安装后注意事项
 
@@ -24,17 +28,9 @@
 
 第一种：ALCPlugFix文件(来自:[daliansky黑果小兵](https://github.com/daliansky/dell7000)），双击ALCPlugFix/install.command即可，但是插上耳机无法使用耳麦，使用的电脑内置mic
 
+第二种(推荐)：ComboJack(来自：[ohmygod1993](http://bbs.pcbeta.com/viewthread-1799183-1-1.html),[hackintosh-stuff](https://github.com/hackintosh-stuff/ComboJack)，修改xps9360上的驱动
 
-
-第二种(推荐)：ComboJack(来自：[ohmygod1993](http://bbs.pcbeta.com/viewthread-1799183-1-1.html),[hackintosh-stuff](https://github.com/hackintosh-stuff/ComboJack)，修改xps9560上的驱动
-
-1. 前提，使用过ALCPlugFix方式，先卸载，双击ALCPlugFix/uninstall.command即可，并删除CLOVER⁩ ▸ ⁨kexts⁩ ▸ ⁨Other⁩下的CodecCommander.kext驱动
-
-2. 将kexts⁩ ▸ ⁨ComboJack_Installer⁩下的VerbStub.kext放到CLOVER⁩ ▸ ⁨kexts⁩ ▸ ⁨Other⁩下
-
-3. 终端下执行⁨kexts⁩ ▸ ⁨ComboJack_Installer⁩下的install.sh重启即可
-
-4. 插入耳机选择Headset,这样耳机和耳麦都正常工作 
+- 插入耳机选择Headset,这样耳机和耳麦都正常工作 
 
 
 
@@ -205,7 +201,7 @@ options：
 
 1. 开机按F2或者F12进入BIOS，选择Boot Sequence![](https://ws3.sinaimg.cn/large/006tNbRwgy1fvv0563xohj31kw16k7wn.jpg)
 2. 点击Add Boot Option![](https://ws1.sinaimg.cn/large/006tNbRwgy1fvv064tmofj31fq0xyu0z.jpg)
-3. 填写名称，随便写什么都可以，选择DVMT.efi得路径，你可以把该文件放到U盘引导分区，也可以放到硬盘引导分区，随意，我的放在clover得tools中![](https://ws4.sinaimg.cn/large/006tNbRwgy1fvv07927izj31bc12s1l0.jpg)
+3. 填写名称，随便写什么都可以，选择 `DVMT.efi` 的路径，你可以把该文件放到 U 盘引导分区，也可以放到硬盘引导分区，随意，我的放在 `tools/` 目录中（仓库已移除 Clover 专用支持）。![](https://ws4.sinaimg.cn/large/006tNbRwgy1fvv07927izj31bc12s1l0.jpg)
 4. 完成后点击OK，保持BIOS设置，重启，按F12，选择之前的填写的引导后回车，我的是`SHELL`![](https://ws3.sinaimg.cn/large/006tNbRwgy1fvv0bb4va8j30t60pukjl.jpg)
 5. 分别输入以上三条命令，执行后会显示之前的值和设置后的值，结果如下图![](https://ws4.sinaimg.cn/large/006tNbRwgy1fvv0f7eyyhj31ho0vg1kz.jpg)
 
@@ -215,6 +211,13 @@ options：
 
 ~~DVMT补丁在KextsToPatch中，默认添加，但是未开启，有需要自行打开~~
 
+
+### 2025-11-25 OpenCore (Ventura+)
+- OC 1.0.6
+- kext 整体更新
+
+---
+以下更新日志来自 [hoanX/xps-13-9360-Hackintosh](https://github.com/hoanX/xps13-9360-Hackintosh)
 -----------------
 
 ### 2021-11-10 OpenCore（Monterey）
@@ -383,3 +386,5 @@ options：
 - [RehabMan](https://bitbucket.org/RehabMan/)
 
 - [Lilu](https://github.com/acidanthera/Lilu) And [Lilu plugins](https://github.com/acidanthera/Lilu/blob/master/KnownPlugins.md)
+
+- [OCAT](https://github.com/ic005k/OCAuxiliaryTools)
